@@ -1,0 +1,10 @@
+11:41:08 **** Incremental Build of configuration Debug for project 13_HAL_Timers_Delay ****
+make -j8 all 
+arm-none-eabi-size  13_HAL_Timers_Delay.elf 
+   text	   data	    bss	    dec	    hex	filename
+   7088	     12	   1652	   8752	   2230	13_HAL_Timers_Delay.elf
+Finished building: default.size.stdout
+ 
+
+11:41:09 Build Finished. 0 errors, 0 warnings. (took 1s.142ms)
+
