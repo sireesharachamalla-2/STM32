@@ -7,23 +7,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
   1 .text         00004fa0  08000190  08000190  00001190  2**4
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       000000d8  08005130  08005130  00006130  2**2
+  2 .rodata       000000d4  08005130  08005130  00006130  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM.extab    00000000  08005208  08005208  00007060  2**0
+  3 .ARM.extab    00000000  08005204  08005204  00007060  2**0
                   CONTENTS, READONLY
-  4 .ARM          00000008  08005208  08005208  00006208  2**2
+  4 .ARM          00000008  08005204  08005204  00006204  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .preinit_array 00000000  08005210  08005210  00007060  2**0
+  5 .preinit_array 00000000  0800520c  0800520c  00007060  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  6 .init_array   00000004  08005210  08005210  00006210  2**2
+  6 .init_array   00000004  0800520c  0800520c  0000620c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  7 .fini_array   00000004  08005214  08005214  00006214  2**2
+  7 .fini_array   00000004  08005210  08005210  00006210  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  8 .data         00000060  20000000  08005218  00007000  2**2
+  8 .data         00000060  20000000  08005214  00007000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  9 .bss          0000115c  20000060  08005278  00007060  2**2
+  9 .bss          0000115c  20000060  08005274  00007060  2**2
                   ALLOC
- 10 ._user_heap_stack 00000604  200011bc  08005278  000071bc  2**0
+ 10 ._user_heap_stack 00000604  200011bc  08005274  000071bc  2**0
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00007060  2**0
                   CONTENTS, READONLY
@@ -645,7 +645,7 @@ void btn_Task_Handler(void *params)
 		}
 		else
 		{
-			debug_printf("Button pressed\r\n");
+			debug_printf("Button pressed\n");
  80006e8:	4805      	ldr	r0, [pc, #20]	@ (8000700 <btn_Task_Handler+0x38>)
  80006ea:	f7ff ff98 	bl	800061e <debug_printf>
 			BUTTON_PRESSED = 1;
@@ -752,11 +752,11 @@ int main(void)
   while (1)
  800076c:	bf00      	nop
  800076e:	e7fd      	b.n	800076c <main+0x68>
- 8000770:	08005168 	.word	0x08005168
+ 8000770:	08005164 	.word	0x08005164
  8000774:	20000358 	.word	0x20000358
- 8000778:	08005144 	.word	0x08005144
+ 8000778:	08005140 	.word	0x08005140
  800077c:	08000699 	.word	0x08000699
- 8000780:	08005150 	.word	0x08005150
+ 8000780:	0800514c 	.word	0x0800514c
  8000784:	080006c9 	.word	0x080006c9
 
 08000788 <SystemClock_Config>:
@@ -1627,7 +1627,7 @@ LoopForever:
   ldr r1, =_edata
  8000b9c:	20000060 	.word	0x20000060
   ldr r2, =_sidata
- 8000ba0:	08005218 	.word	0x08005218
+ 8000ba0:	08005214 	.word	0x08005214
   ldr r2, =_sbss
  8000ba4:	20000060 	.word	0x20000060
   ldr r4, =_ebss
@@ -3289,7 +3289,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
  800155c:	e014      	b.n	8001588 <HAL_RCC_OscConfig+0x298>
  800155e:	bf00      	nop
  8001560:	40021000 	.word	0x40021000
- 8001564:	0800518c 	.word	0x0800518c
+ 8001564:	08005188 	.word	0x08005188
  8001568:	20000000 	.word	0x20000000
  800156c:	20000004 	.word	0x20000004
  8001570:	4ba0      	ldr	r3, [pc, #640]	@ (80017f4 <HAL_RCC_OscConfig+0x504>)
@@ -4594,7 +4594,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
  8001c92:	bd80      	pop	{r7, pc}
  8001c94:	40022000 	.word	0x40022000
  8001c98:	40021000 	.word	0x40021000
- 8001c9c:	0800518c 	.word	0x0800518c
+ 8001c9c:	08005188 	.word	0x08005188
  8001ca0:	20000000 	.word	0x20000000
  8001ca4:	20000004 	.word	0x20000004
 
@@ -4799,7 +4799,7 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
  8001dac:	4770      	bx	lr
  8001dae:	bf00      	nop
  8001db0:	40021000 	.word	0x40021000
- 8001db4:	080051a4 	.word	0x080051a4
+ 8001db4:	080051a0 	.word	0x080051a0
  8001db8:	00f42400 	.word	0x00f42400
  8001dbc:	007a1200 	.word	0x007a1200
 
@@ -4848,7 +4848,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8001df8:	4618      	mov	r0, r3
  8001dfa:	bd80      	pop	{r7, pc}
  8001dfc:	40021000 	.word	0x40021000
- 8001e00:	0800519c 	.word	0x0800519c
+ 8001e00:	08005198 	.word	0x08005198
 
 08001e04 <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -4875,7 +4875,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8001e24:	4618      	mov	r0, r3
  8001e26:	bd80      	pop	{r7, pc}
  8001e28:	40021000 	.word	0x40021000
- 8001e2c:	0800519c 	.word	0x0800519c
+ 8001e2c:	08005198 	.word	0x08005198
 
 08001e30 <RCC_SetFlashLatencyFromMSIRange>:
             voltage range.
@@ -9798,7 +9798,7 @@ BaseType_t xReturn;
  8003952:	46bd      	mov	sp, r7
  8003954:	bd80      	pop	{r7, pc}
  8003956:	bf00      	nop
- 8003958:	08005184 	.word	0x08005184
+ 8003958:	08005180 	.word	0x08005180
  800395c:	08003cf5 	.word	0x08003cf5
  8003960:	2000048c 	.word	0x2000048c
  8003964:	20000488 	.word	0x20000488
@@ -12508,10 +12508,10 @@ uint8_t *puc;
  800486a:	4798      	blx	r3
  800486c:	3601      	adds	r6, #1
  800486e:	e7f2      	b.n	8004856 <__libc_init_array+0x1e>
- 8004870:	08005210 	.word	0x08005210
- 8004874:	08005210 	.word	0x08005210
- 8004878:	08005210 	.word	0x08005210
- 800487c:	08005214 	.word	0x08005214
+ 8004870:	0800520c 	.word	0x0800520c
+ 8004874:	0800520c 	.word	0x0800520c
+ 8004878:	0800520c 	.word	0x0800520c
+ 800487c:	08005210 	.word	0x08005210
 
 08004880 <__retarget_lock_acquire_recursive>:
  8004880:	4770      	bx	lr
@@ -13030,11 +13030,11 @@ uint8_t *puc;
  8004d24:	4638      	mov	r0, r7
  8004d26:	f000 f879 	bl	8004e1c <_printf_i>
  8004d2a:	e7ed      	b.n	8004d08 <_svfiprintf_r+0x1c0>
- 8004d2c:	080051d4 	.word	0x080051d4
- 8004d30:	080051de 	.word	0x080051de
+ 8004d2c:	080051d0 	.word	0x080051d0
+ 8004d30:	080051da 	.word	0x080051da
  8004d34:	00000000 	.word	0x00000000
  8004d38:	08004a91 	.word	0x08004a91
- 8004d3c:	080051da 	.word	0x080051da
+ 8004d3c:	080051d6 	.word	0x080051d6
 
 08004d40 <_printf_common>:
  8004d40:	e92d 47f0 	stmdb	sp!, {r4, r5, r6, r7, r8, r9, sl, lr}
@@ -13363,8 +13363,8 @@ uint8_t *puc;
  8005048:	2500      	movs	r5, #0
  800504a:	f104 0619 	add.w	r6, r4, #25
  800504e:	e7f5      	b.n	800503c <_printf_i+0x220>
- 8005050:	080051e5 	.word	0x080051e5
- 8005054:	080051f6 	.word	0x080051f6
+ 8005050:	080051e1 	.word	0x080051e1
+ 8005054:	080051f2 	.word	0x080051f2
 
 08005058 <memmove>:
  8005058:	4288      	cmp	r0, r1
