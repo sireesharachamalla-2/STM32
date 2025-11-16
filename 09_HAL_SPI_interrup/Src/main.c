@@ -4,8 +4,8 @@ SPI_HandleTypeDef hspi1;
 void spi1_init(void);
 
 
-uint8_t tx_buffer[10] = {0,1,2,3,4,5,6,7,8,9};
-uint8_t rx_buffer[10];
+volatile uint8_t tx_buffer[10] = {0,1,2,3,4,5,6,7,8,9};
+volatile uint8_t rx_buffer[10];
 
 int counter;
 void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
