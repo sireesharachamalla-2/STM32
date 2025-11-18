@@ -1,0 +1,10 @@
+15:29:46 **** Incremental Build of configuration Debug for project 56_environmental_sensor ****
+make -j8 all 
+arm-none-eabi-size  56_environmental_sensor.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4448	     84	   1900	   6432	   1920	56_environmental_sensor.elf
+Finished building: default.size.stdout
+ 
+
+15:29:47 Build Finished. 0 errors, 0 warnings. (took 559ms)
+

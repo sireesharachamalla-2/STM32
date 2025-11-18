@@ -1,0 +1,51 @@
+15:41:22 **** Incremental Build of configuration Debug for project ultasonic_gpio_hal ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:46:1: error: unknown type name 'TIM_HandleTypeDef'; did you mean 'DMA_HandleTypeDef'?
+   46 | TIM_HandleTypeDef htim2;
+      | ^~~~~~~~~~~~~~~~~
+      | DMA_HandleTypeDef
+../Core/Src/main.c:65:1: error: unknown type name 'TIM_HandleTypeDef'; did you mean 'DMA_HandleTypeDef'?
+   65 | TIM_HandleTypeDef htim2;
+      | ^~~~~~~~~~~~~~~~~
+      | DMA_HandleTypeDef
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:110:3: warning: implicit declaration of function 'MX_TIM2_Init'; did you mean 'MX_GPIO_Init'? [-Wimplicit-function-declaration]
+  110 |   MX_TIM2_Init();
+      |   ^~~~~~~~~~~~
+      |   MX_GPIO_Init
+../Core/Src/main.c:112:5: warning: implicit declaration of function 'HAL_TIM_IC_Start_IT'; did you mean 'HAL_DMA_Start_IT'? [-Wimplicit-function-declaration]
+  112 |     HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
+      |     ^~~~~~~~~~~~~~~~~~~
+      |     HAL_DMA_Start_IT
+../Core/Src/main.c:112:33: error: 'TIM_CHANNEL_1' undeclared (first use in this function); did you mean 'DMA_CHANNEL_1'?
+  112 |     HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
+      |                                 ^~~~~~~~~~~~~
+      |                                 DMA_CHANNEL_1
+../Core/Src/main.c:112:33: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:125:11: warning: implicit declaration of function 'HCSR04_Trig' [-Wimplicit-function-declaration]
+  125 |           HCSR04_Trig();
+      |           ^~~~~~~~~~~
+../Core/Src/main.c: In function 'delay_us':
+../Core/Src/main.c:244:5: warning: implicit declaration of function '__HAL_TIM_SET_COUNTER' [-Wimplicit-function-declaration]
+  244 |     __HAL_TIM_SET_COUNTER(&htim2, 0);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:245:11: warning: implicit declaration of function '__HAL_TIM_GET_COUNTER' [-Wimplicit-function-declaration]
+  245 |     while(__HAL_TIM_GET_COUNTER(&htim2) < us);
+      |           ^~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:248:6: warning: conflicting types for 'HCSR04_Trig'; have 'void(void)'
+  248 | void HCSR04_Trig(void) {
+      |      ^~~~~~~~~~~
+../Core/Src/main.c:125:11: note: previous implicit declaration of 'HCSR04_Trig' with type 'void(void)'
+  125 |           HCSR04_Trig();
+      |           ^~~~~~~~~~~
+../Core/Src/main.c:256:33: error: unknown type name 'TIM_HandleTypeDef'; did you mean 'DMA_HandleTypeDef'?
+  256 | void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
+      |                                 ^~~~~~~~~~~~~~~~~
+      |                                 DMA_HandleTypeDef
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+15:41:24 Build Failed. 5 errors, 6 warnings. (took 1s.324ms)
+

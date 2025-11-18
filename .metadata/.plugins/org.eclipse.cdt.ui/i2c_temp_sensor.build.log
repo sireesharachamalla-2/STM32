@@ -1,0 +1,10 @@
+16:37:45 **** Incremental Build of configuration Debug for project i2c_temp_sensor ****
+make -j8 all 
+arm-none-eabi-size  i2c_temp_sensor.elf 
+   text	   data	    bss	    dec	    hex	filename
+  19756	     92	   2124	  21972	   55d4	i2c_temp_sensor.elf
+Finished building: default.size.stdout
+ 
+
+16:37:46 Build Finished. 0 errors, 0 warnings. (took 708ms)
+

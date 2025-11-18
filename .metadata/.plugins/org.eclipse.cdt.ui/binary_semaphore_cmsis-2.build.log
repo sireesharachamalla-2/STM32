@@ -1,0 +1,10 @@
+17:31:31 **** Incremental Build of configuration Debug for project binary_semaphore_cmsis-2 ****
+make -j8 all 
+arm-none-eabi-size  binary_semaphore_cmsis-2.elf 
+   text	   data	    bss	    dec	    hex	filename
+  28564	    108	   8460	  37132	   910c	binary_semaphore_cmsis-2.elf
+Finished building: default.size.stdout
+ 
+
+17:31:32 Build Finished. 0 errors, 0 warnings. (took 690ms)
+

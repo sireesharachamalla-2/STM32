@@ -1,0 +1,10 @@
+18:05:51 **** Incremental Build of configuration Debug for project 51_Queue_management_Freertos ****
+make -j8 all 
+arm-none-eabi-size  51_Queue_management_Freertos.elf 
+   text	   data	    bss	    dec	    hex	filename
+  26116	    252	   6028	  32396	   7e8c	51_Queue_management_Freertos.elf
+Finished building: default.size.stdout
+ 
+
+18:05:51 Build Finished. 0 errors, 0 warnings. (took 690ms)
+

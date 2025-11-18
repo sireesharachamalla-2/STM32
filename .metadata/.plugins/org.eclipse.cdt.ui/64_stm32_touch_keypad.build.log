@@ -1,0 +1,10 @@
+10:43:46 **** Incremental Build of configuration Debug for project 64_stm32_touch_keypad ****
+make -j8 all 
+arm-none-eabi-size  64_stm32_touch_keypad.elf 
+   text	   data	    bss	    dec	    hex	filename
+  21312	    104	   2144	  23560	   5c08	64_stm32_touch_keypad.elf
+Finished building: default.size.stdout
+ 
+
+10:43:47 Build Finished. 0 errors, 0 warnings. (took 543ms)
+

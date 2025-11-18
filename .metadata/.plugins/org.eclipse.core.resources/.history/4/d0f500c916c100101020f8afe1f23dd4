@@ -1,0 +1,155 @@
+#include "FreeRTOS.h"
+#include "task.h"
+#include "semphr.h"
+#include "stm32l476xx.h"
+
+/*-----------------------------------------------------------*/
+/* ITM SWV Print Function (PORT 0) */
+static inline void SWV_Print(const char *s)
+{
+    while (*s)
+    {
+        ITM_SendChar(*s++);
+    }
+}
+
+/*-----------------------------------------------------------*/
+/* Initialize ITM + DWT trace units */
+static void SWV_Init(void)
+{
+    /* Enable TRC */
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+
+    /* Unlock ITM */
+    ITM->LAR = 0xC5ACCE55;
+
+    /* Enable ITM */
+    ITM->TCR = ITM_TCR_ITMENA_Msk | (1 << ITM_TCR_TSENA_Pos);
+
+    /* Enable Stimulus Port 0 */
+    ITM->TER |= (1UL << 0);
+
+    /* Enable DWT CYCCNT */
+    DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+}
+
+/*-----------------------------------------------------------*/
+SemaphoreHandle_t xSem;
+
+/* Sender Task */
+void SenderTask(void *pvParameters)
+{
+    for (;;)
+    {
+        xSemaphoreGive(xSem);
+        SWV_Print("Semaphore given\r\n");
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+
+/* Receiver Task */
+void ReceiverTask(void *pvParameters)
+{
+    for (;;)
+    {
+        if (xSemaphoreTake(xSem, portMAX_DELAY) == pdTRUE)
+        {
+            SWV_Print("Semaphore taken\r\n");
+        }
+    }
+}
+
+/*-----------------------------------------------------------*/
+/* System Clock: MSI 4 MHz + PLL = 80 MHz */
+void SystemClock_Config(void)
+{
+    /* Enable PWR and set VOS1 */
+    RCC->APB1ENR1 |= RCC_APB1ENR1_PWREN;
+    PWR->CR1 |= PWR_CR1_VOS_0;
+
+    /* Enable MSI */
+    RCC->CR |= RCC_CR_MSION;
+    while (!(RCC->CR & RCC_CR_MSIRDY));
+
+    /* MSI = 4 MHz */
+    RCC->CR &= ~RCC_CR_MSIRANGE;
+    RCC->CR |= RCC_CR_MSIRANGE_6;
+    RCC->CR |= RCC_CR_MSIRGSEL;
+
+    /* Configure PLL → 80 MHz */
+    RCC->PLLCFGR = RCC_PLLCFGR_PLLSRC_MSI |
+                   (1 << RCC_PLLCFGR_PLLM_Pos) |
+                   (40 << RCC_PLLCFGR_PLLN_Pos) |
+                   RCC_PLLCFGR_PLLREN; /* PLLR = 2 */
+
+    RCC->CR |= RCC_CR_PLLON;
+    while (!(RCC->CR & RCC_CR_PLLRDY));
+
+    /* Switch SYSCLK to PLL */
+    RCC->CFGR |= RCC_CFGR_SW_PLL;
+    while ((RCC->CFGR & RCC_CFGR_SWS) != RCC_CFGR_SWS_PLL);
+}
+
+/*-----------------------------------------------------------*/
+int main(void)
+{
+    SystemClock_Config();
+    SWV_Init();
+
+    SWV_Print("\r\n=== FreeRTOS SWV ITM Demo ===\r\n");
+
+
+    xSem = xSemaphoreCreateBinary();
+    if (xSem == NULL)
+    {
+        SWV_Print("Semaphore creation failed!\r\n");
+        while (1);
+    }
+
+    /* Create tasks */
+    xTaskCreate(SenderTask, "Sender", 256, NULL, 1, NULL);
+    xTaskCreate(ReceiverTask, "Receiver", 256, NULL, 1, NULL);
+
+
+    vTaskStartScheduler();
+
+
+    while (1)
+    {
+        SWV_Print("Scheduler failed!\r\n");
+    }
+
+    static void MX_GPIO_Init(void)
+    {
+      GPIO_InitTypeDef GPIO_InitStruct = {0};
+      /* USER CODE BEGIN MX_GPIO_Init_1 */
+
+      /* USER CODE END MX_GPIO_Init_1 */
+
+      /* GPIO Ports Clock Enable */
+      __HAL_RCC_GPIOC_CLK_ENABLE();
+      __HAL_RCC_GPIOH_CLK_ENABLE();
+      __HAL_RCC_GPIOA_CLK_ENABLE();
+      __HAL_RCC_GPIOB_CLK_ENABLE();
+
+      /*Configure GPIO pin Output Level */
+      HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+
+      /*Configure GPIO pin : B1_Pin */
+      GPIO_InitStruct.Pin = B1_Pin;
+      GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+      GPIO_InitStruct.Pull = GPIO_NOPULL;
+      HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+
+      /*Configure GPIO pin : LD2_Pin */
+      GPIO_InitStruct.Pin = LD2_Pin;
+      GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+      GPIO_InitStruct.Pull = GPIO_NOPULL;
+      GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+      HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+
+      /* USER CODE BEGIN MX_GPIO_Init_2 */
+
+      /* USER CODE END MX_GPIO_Init_2 */
+    }
+}

@@ -1,0 +1,10 @@
+14:48:33 **** Incremental Build of configuration Debug for project 63_non_volatile_storage_with_ultrasonic ****
+make -j8 all 
+arm-none-eabi-size  63_non_volatile_storage_with_ultrasonic.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4248	     84	   1900	   6232	   1858	63_non_volatile_storage_with_ultrasonic.elf
+Finished building: default.size.stdout
+ 
+
+14:48:34 Build Finished. 0 errors, 0 warnings. (took 732ms)
+

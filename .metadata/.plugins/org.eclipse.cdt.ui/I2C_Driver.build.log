@@ -1,0 +1,12 @@
+14:54:29 **** Incremental Build of configuration Debug for project I2C_driver ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/stm32/I2C_driver/Drivers/Inc" -I"C:/stm32/I2C_driver/Drivers/Src" -I"C:/stm32/I2C_driver/Drivers" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c:2:9: fatal error: main.h: No such file or directory
+    2 | #include"main.h"
+      |         ^~~~~~~~
+compilation terminated.
+make: *** [Src/subdir.mk:25: Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+14:54:30 Build Failed. 2 errors, 0 warnings. (took 1s.106ms)
+

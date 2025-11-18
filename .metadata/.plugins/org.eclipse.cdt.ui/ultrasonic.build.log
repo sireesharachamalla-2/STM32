@@ -1,0 +1,13 @@
+13:59:08 **** Incremental Build of configuration Debug for project ultrasonic ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32L4 -DSTM32 -DNUCLEO_L476RG -DSTM32L476RGTx -c -I../Inc -I"C:/stm32/ultrasonic/Drivers/Inc" -I"C:/stm32/ultrasonic/Drivers/Src" -I"C:/stm32/ultrasonic/Drivers" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:8:5: error: 'SysTick' undeclared (first use in this function)
+    8 |     SysTick->CTRL = 0; // ensure SysTick off
+      |     ^~~~~~~
+../Src/main.c:8:5: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [Src/subdir.mk:25: Src/main.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+13:59:10 Build Failed. 2 errors, 0 warnings. (took 1s.164ms)
+

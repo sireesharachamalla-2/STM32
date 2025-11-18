@@ -1,0 +1,10 @@
+17:56:36 **** Incremental Build of configuration Debug for project 55_mutex_binary_semaohore_Freertos ****
+make -j8 all 
+arm-none-eabi-size  55_mutex_binary_semaohore_Freertos.elf 
+   text	   data	    bss	    dec	    hex	filename
+  24516	     96	   5984	  30596	   7784	55_mutex_binary_semaohore_Freertos.elf
+Finished building: default.size.stdout
+ 
+
+17:56:36 Build Finished. 0 errors, 0 warnings. (took 730ms)
+

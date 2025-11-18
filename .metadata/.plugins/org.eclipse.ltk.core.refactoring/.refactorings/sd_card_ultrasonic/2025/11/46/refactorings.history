@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;sd_card_ultrasonic/Core/Src/fatfs_sd_card&apos; to &apos;fatfs_sd_card.c&apos;" description="Rename resource &apos;fatfs_sd_card&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Core/Src/fatfs_sd_card" name="fatfs_sd_card.c" stamp="1763042804759" updateReferences="true"/>
+</session>

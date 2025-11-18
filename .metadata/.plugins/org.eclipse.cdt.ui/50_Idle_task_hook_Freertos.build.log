@@ -1,0 +1,10 @@
+16:55:08 **** Incremental Build of configuration Debug for project 50_Idle_task_hook_Freertos ****
+make -j8 all 
+arm-none-eabi-size  50_Idle_task_hook_Freertos.elf 
+   text	   data	    bss	    dec	    hex	filename
+  20948	     96	   5984	  27028	   6994	50_Idle_task_hook_Freertos.elf
+Finished building: default.size.stdout
+ 
+
+16:55:08 Build Finished. 0 errors, 0 warnings. (took 765ms)
+

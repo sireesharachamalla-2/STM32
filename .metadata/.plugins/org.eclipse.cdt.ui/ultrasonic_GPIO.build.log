@@ -1,0 +1,16 @@
+15:18:19 **** Incremental Build of configuration Debug for project ultrasonic_GPIO ****
+make -j8 all 
+arm-none-eabi-gcc "../Src/ultrasonic.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DNUCLEO_F411RE -DSTM32 -DSTM32F4 -DSTM32F411RETx -c -I../Inc -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/ultrasonic.d" -MT"Src/ultrasonic.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/ultrasonic.o"
+../Src/ultrasonic.c: In function 'delay_us':
+../Src/ultrasonic.c:27:5: error: 'SysTick' undeclared (first use in this function)
+   27 |     SysTick->LOAD = (SystemCoreClock/1000000 - 1);
+      |     ^~~~~~~
+../Src/ultrasonic.c:27:5: note: each undeclared identifier is reported only once for each function it appears in
+../Src/ultrasonic.c:27:22: error: 'SystemCoreClock' undeclared (first use in this function)
+   27 |     SysTick->LOAD = (SystemCoreClock/1000000 - 1);
+      |                      ^~~~~~~~~~~~~~~
+make: *** [Src/subdir.mk:28: Src/ultrasonic.o] Error 1
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
+
+15:18:20 Build Failed. 3 errors, 0 warnings. (took 1s.87ms)
+

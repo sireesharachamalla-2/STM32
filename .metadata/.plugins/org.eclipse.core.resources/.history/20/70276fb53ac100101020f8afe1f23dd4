@@ -1,0 +1,87 @@
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+#include "cmsis_os.h"
+#include <stdio.h>
+
+/* Private variables ---------------------------------------------------------*/
+I2C_HandleTypeDef hi2c1;
+UART_HandleTypeDef huart2;
+
+/* FreeRTOS objects ----------------------------------------------------------*/
+osThreadId SenderTaskHandle;
+osThreadId ReceiverTaskHandle;
+
+SemaphoreHandle_t xCountSem;
+
+/* Redirect printf to SWV or UART */
+int _write(int file, char *ptr, int len)
+{
+    for (int i = 0; i < len; i++)
+        ITM_SendChar((*ptr++));
+    return len;
+}
+
+/* Task Prototypes -----------------------------------------------------------*/
+void SenderTask(void const * argument);
+void ReceiverTask(void const * argument);
+
+/*-----------------------------------------------------------*/
+/* Application entry point                                   */
+int main(void)
+{
+  HAL_Init();
+  SystemClock_Config();
+
+  MX_GPIO_Init();
+  MX_USART2_UART_Init();
+  MX_I2C1_Init();
+
+  printf("=== Counting Semaphore Demo Start ===\r\n");
+
+  /* Create Counting Semaphore: max 5 , initial 0 */
+  xCountSem = xSemaphoreCreateCounting(5, 0);
+
+  if (xCountSem == NULL)
+  {
+      printf("Failed to create semaphore!\r\n");
+      while(1);
+  }
+
+  /* Create tasks */
+  osThreadDef(sender, SenderTask, osPriorityNormal, 0, 128);
+  SenderTaskHandle = osThreadCreate(osThread(sender), NULL);
+
+  osThreadDef(receiver, ReceiverTask, osPriorityNormal, 0, 128);
+  ReceiverTaskHandle = osThreadCreate(osThread(receiver), NULL);
+
+  /* Start scheduler */
+  osKernelStart();
+
+  while (1)
+  {
+  }
+}
+
+/*-----------------------------------------------------------*/
+/* Sender Task: gives semaphore 1 time per second            */
+void SenderTask(void const * argument)
+{
+  for(;;)
+  {
+    if (xSemaphoreGive(xCountSem) == pdTRUE)
+        printf("Semaphore Incremented\r\n");
+
+    vTaskDelay(pdMS_TO_TICKS(1000));
+  }
+}
+
+/*-----------------------------------------------------------*/
+/* Receiver Task: takes semaphore whenever available         */
+void ReceiverTask(void const * argument)
+{
+  for(;;)
+  {
+    if (xSemaphoreTake(xCountSem, portMAX_DELAY) == pdTRUE)
+        printf("Semaphore Taken\r\n");
+  }
+}
