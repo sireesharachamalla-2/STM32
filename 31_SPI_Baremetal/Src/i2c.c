@@ -1,9 +1,4 @@
-/*
- * i2c.c
- *
- *  Created on: Sep 10, 2025
- *      Author: VINOD
- */
+
 
 #include"i2c.h"
 
